@@ -4,11 +4,15 @@
 # Copyright:: Copyright (c) 2000-2002 Nathaniel Talbott. All rights reserved.
 # License:: Ruby license.
 
-require 'fox'
+begin
+  require 'fox16'
+rescue LoadError
+  require 'rubygems'
+  require 'fox16'
+end
+
 require 'test/unit/ui/testrunnermediator'
 require 'test/unit/ui/testrunnerutilities'
-
-include Fox
 
 module Test
   module Unit
@@ -21,11 +25,12 @@ module Test
         # FOX extension (http://fxruby.sourceforge.net/)
         # installed.
         class TestRunner
+          include Fox
 
           extend TestRunnerUtilities
-          
-          RED_STYLE = FXRGBA(0xFF,0,0,0xFF) #0xFF000000
-          GREEN_STYLE = FXRGBA(0,0xFF,0,0xFF) #0x00FF0000
+
+          RED_STYLE = Fox::FXRGBA(0xFF,0,0,0xFF) #0xFF000000
+          GREEN_STYLE = Fox::FXRGBA(0,0xFF,0,0xFF) #0x00FF0000
 
           # Creates a new TestRunner for running the passed
           # suite.
@@ -191,7 +196,7 @@ module Test
           end
           
           def create_tooltip(app)
-            FXTooltip.new(app)
+            FXToolTip.new(app)
           end
   
           def create_main_panel(parent)
@@ -225,10 +230,13 @@ module Test
           end
           
           def create_fault_list(parent)
-            list = FXList.new(parent, 10, nil, 0, LIST_SINGLESELECT | LAYOUT_FILL_X) #, 0, 0, 0, 150)
+            list = FXList.new(parent,
+                              :opts => LIST_SINGLESELECT | LAYOUT_FILL_X,
+                              :width => 150)
             list.connect(SEL_COMMAND) do |sender, sel, ptr|
-              if sender.retrieveItem(sender.currentItem).selected?
-                show_fault(sender.retrieveItem(sender.currentItem).fault)
+              item = sender.getItem(sender.currentItem)
+              if item.selected?
+                show_fault(item.fault)
               else
                 clear_fault
               end
@@ -251,7 +259,7 @@ module Test
           end
         end
   
-        class FaultListItem < FXListItem
+        class FaultListItem < Fox::FXListItem
           attr_reader(:fault)
           def initialize(fault)
             super(fault.short_display)
