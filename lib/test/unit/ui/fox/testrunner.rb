@@ -11,8 +11,8 @@ rescue LoadError
   require 'fox16'
 end
 
+require 'test/unit/ui/testrunner'
 require 'test/unit/ui/testrunnermediator'
-require 'test/unit/ui/testrunnerutilities'
 
 module Test
   module Unit
@@ -24,23 +24,16 @@ module Test
         # (http://www.fox-toolkit.org/fox.html) and the Ruby
         # FOX extension (http://fxruby.sourceforge.net/)
         # installed.
-        class TestRunner
+        class TestRunner < UI::TestRunner
           include Fox
-
-          extend TestRunnerUtilities
 
           RED_STYLE = Fox::FXRGBA(0xFF,0,0,0xFF) #0xFF000000
           GREEN_STYLE = Fox::FXRGBA(0,0xFF,0,0xFF) #0x00FF0000
 
           # Creates a new TestRunner for running the passed
           # suite.
-          def initialize(suite, output_level = NORMAL)
-            if (suite.respond_to?(:suite))
-              @suite = suite.suite
-            else
-              @suite = suite
-            end
-
+          def initialize(suite, options={})
+            super
             @result = nil
             @red = false
           end
