@@ -1,6 +1,7 @@
 # -*- ruby -*-
 
 require 'rubygems'
+gem 'test-unit'
 require 'hoe'
 require './lib/test/unit/runner/fox'
 
@@ -11,6 +12,8 @@ ENV["VERSION"] = version
 Hoe.new('test-unit-runner-fox', version) do |p|
   p.developer('Kouhei Sutou', 'kou@cozmixng.org')
   p.developer('Ryan Davis', 'ryand-ruby@zenspider.com')
+
+  p.rubyforge_name = "test-unit"
 end
 
 task :tag do
