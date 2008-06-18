@@ -6,9 +6,17 @@ require './lib/test/unit/runner/fox'
 
 Test::Unit.run = true
 
-Hoe.new('test-unit-runner-fox', Test::Unit::Runner::FOX::VERSION) do |p|
+version = Test::Unit::Runner::FOX::VERSION
+ENV["VERSION"] = version
+Hoe.new('test-unit-runner-fox', version) do |p|
   p.developer('Kouhei Sutou', 'kou@cozmixng.org')
   p.developer('Ryan Davis', 'ryand-ruby@zenspider.com')
+end
+
+task :tag do
+  message = "Released Test::Unit::Runner::FOX #{version}!"
+  base = "svn+ssh://#{ENV['USER']}@rubyforge.org/var/svn/test-unit/extensions/test-unit-runner-fox/"
+  sh 'svn', 'copy', '-m', message, "#{base}trunk", "#{base}tags/#{version}"
 end
 
 # vim: syntax=Ruby
