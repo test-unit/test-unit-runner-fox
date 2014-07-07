@@ -20,8 +20,8 @@ end
 
 task :tag do
   message = "Released Test::Unit::Runner::FOX #{version}!"
-  base = "svn+ssh://#{ENV['USER']}@rubyforge.org/var/svn/test-unit/extensions/test-unit-runner-fox/"
-  sh 'svn', 'copy', '-m', message, "#{base}trunk", "#{base}tags/#{version}"
+  sh "git", "tag", version, "-m", message
+  sh "git", "push", "--tags"
 end
 
 # vim: syntax=Ruby
