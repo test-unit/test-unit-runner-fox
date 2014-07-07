@@ -13,8 +13,6 @@ Hoe.new('test-unit-runner-fox', version) do |p|
   p.developer('Kouhei Sutou', 'kou@cozmixng.org')
   p.developer('Ryan Davis', 'ryand-ruby@zenspider.com')
 
-  p.rubyforge_name = "test-unit"
-
   p.extra_deps = ["test-unit", "fxruby"]
 end
 
