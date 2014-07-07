@@ -1,6 +1,6 @@
 = Test::Unit::Runner::FOX
 
-* http://rubyforge.org/projects/test-unit/
+* https://github.com/test-unit/test-unit-full
 
 == DESCRIPTION:
 
