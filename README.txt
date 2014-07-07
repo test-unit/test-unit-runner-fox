@@ -1,6 +1,6 @@
 = Test::Unit::Runner::FOX
 
-* https://github.com/test-unit/test-unit-full
+* https://github.com/test-unit/test-unit-fox
 
 == DESCRIPTION:
 
